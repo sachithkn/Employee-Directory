@@ -17,4 +17,9 @@ class EmployeeViewModel(private val employeeRepository:EmployeeRepository) {
     fun getEmployee(lifecycleOwner: LifecycleOwner,id:String): LiveData<RoomModels.EmployeeDaoModel>?{
         return employeeRepository.getEmployee(lifecycleOwner,id)
     }
+
+
+    fun getEmployeeSearch(lifecycleOwner: LifecycleOwner,search:String): LiveData<List<RoomModels.EmployeeDaoModel>>?{
+        return employeeRepository.getEmployeeSearch(lifecycleOwner,search)
+    }
 }

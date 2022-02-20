@@ -1,15 +1,16 @@
 package com.whiterabbittest.employeedirectory.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.whiterabbittest.employeedirectory.R
 import com.whiterabbittest.employeedirectory.adapter.MyEmployeeRecyclerViewAdapter
@@ -26,6 +27,7 @@ class EmployeeFragment : Fragment() {
     private var employeeRepository: EmployeeRepository? = null
     private var progressBar:ProgressBar? = null
     private var recyclerView:RecyclerView? = null
+    private var searchView:SearchView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,28 @@ class EmployeeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.list)
         progressBar = view.findViewById(R.id.progressBar)
+        searchView = view.findViewById(R.id.searchView)
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                callSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                if(newText.isEmpty()){
+                    getEmployee()
+                }else{
+                    getEmployee(newText)
+                }
+                callSearch(newText)
+                return true
+            }
+
+            fun callSearch(query: String?) {
+                //Do searching
+            }
+        })
         getEmployee()
     }
 
@@ -68,4 +92,30 @@ class EmployeeFragment : Fragment() {
         }
     }
 
+    private fun getEmployee(search:String) {
+        progressBar?.visibility = View.VISIBLE
+        val webService: WebService? = WebServiceProvider().getInstance()
+        val db = Room.databaseBuilder(
+            requireActivity(),
+            AppDatabase::class.java, Utils.EMPLOYEE_DIRECTORY_DATABASE
+        ).build()
+        employeeRepository = EmployeeRepository(webService!!, db.employeeListDao(),requireActivity() )
+        if (webService != null && employeeRepository != null) {
+            val viewModel = EmployeeViewModel(employeeRepository!!)
+            viewModel.getEmployeeSearch(viewLifecycleOwner,search)?.observe(viewLifecycleOwner) { employeeList ->
+                progressBar?.visibility = View.GONE
+                if (employeeList != null && employeeList.isNotEmpty() && recyclerView != null) {
+                    with(recyclerView!!) {
+                        layoutManager = when {
+                            columnCount <= 1 -> LinearLayoutManager(context)
+                            else -> GridLayoutManager(context, columnCount)
+                        }
+                        adapter = MyEmployeeRecyclerViewAdapter(context,employeeList)
+                    }
+                } else {
+                    Toast.makeText(context, "No data available", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 }

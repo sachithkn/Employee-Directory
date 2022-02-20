@@ -76,17 +76,17 @@ class EmployeeDetailsFragment : Fragment() {
             val viewModel = EmployeeViewModel(employeeRepository!!)
             viewModel.getEmployee(viewLifecycleOwner,employeeId!!)?.observe(viewLifecycleOwner) { employee ->
                 if (employee != null) {
-                    nameTxtVw?.text = "Name:+ $employee.name"
-                    userNameTxtVw?.text = "User Name:+ ${employee.username}"
-                    websiteTxtVw?.text ="Website:+ ${employee.website}"
-                    phoneTxtVw?.text = "Phone:+ ${employee.phone}"
+                    nameTxtVw?.text = "Name: ${employee.name}"
+                    userNameTxtVw?.text = "User Name: ${employee.username}"
+                    websiteTxtVw?.text ="Website: ${employee.website}"
+                    phoneTxtVw?.text = "Phone: ${employee.phone}"
                     if(employee.company != null) {
-                        detailsTxtVw?.text =  "Company:+ ${employee.company}"
+                        detailsTxtVw?.text =  "Company: ${employee.company}"
                     }
                     if(employee.address != null) {
-                        detailsTxtVw?.text = "Address:+ ${employee.address}"
+                        detailsTxtVw?.text = "Address: ${employee.address}"
                     }
-                    emailTxtVw?.text = "Email:+ ${employee.email}"
+                    emailTxtVw?.text = "Email: ${employee.email}"
                     if(imageView != null)
                         Glide.with(requireContext()).load(employee.profile_image).into(imageView!!)
                 } else {

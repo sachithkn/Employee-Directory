@@ -62,6 +62,17 @@ class EmployeeRepository(private val webService: WebService,
         return data
     }
 
+    fun getEmployeeSearch(owner: LifecycleOwner,search:String):MutableLiveData<List<RoomModels.EmployeeDaoModel>>?{
+        val data: MutableLiveData<List<RoomModels.EmployeeDaoModel>> = MutableLiveData()
+        var list:List<RoomModels.EmployeeDaoModel>
+        employeeDao.getEmployeeSearch(search).observe(owner) {
+            list = it
+            data.value = list
+        }
+        return data
+    }
+
+
     fun convertServiceModelToRoomModel(employeeList: List<Models.Employee>):List<RoomModels.EmployeeDaoModel>{
         val list:ArrayList<RoomModels.EmployeeDaoModel> = ArrayList()
         for(employee in employeeList ){
