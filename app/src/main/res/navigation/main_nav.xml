@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/emplyeeFragment">
+
+    <fragment
+        android:id="@+id/emplyeeFragment"
+        android:name="com.whiterabbittest.employeedirectory.fragments.EmployeeFragment"
+        android:label="EmplyeeFragment"
+        tools:layout="@layout/fragment_employee" >
+        <action
+            android:id="@+id/action_emplyeeFragment_to_employeeDetailsFragment"
+            app:destination="@id/employeeDetailsFragment" />
+        <argument
+            android:name="employeeId"
+            app:argType="string"
+            android:defaultValue="0"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/employeeDetailsFragment"
+        android:name="com.whiterabbittest.employeedirectory.fragments.EmployeeDetailsFragment"
+        android:label="fragment_employee_details"
+        tools:layout="@layout/fragment_employee_details" />
+</navigation>
