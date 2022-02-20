@@ -65,7 +65,7 @@ class EmployeeRepository(private val webService: WebService,
     fun convertServiceModelToRoomModel(employeeList: List<Models.Employee>):List<RoomModels.EmployeeDaoModel>{
         val list:ArrayList<RoomModels.EmployeeDaoModel> = ArrayList()
         for(employee in employeeList ){
-            val employeeModel = RoomModels.EmployeeDaoModel();
+            val employeeModel = RoomModels.EmployeeDaoModel(employee.id!!);
             val addressModel = RoomModels.AddressDaoModel();
             val companyModel = RoomModels.CompanyDaoModel();
 
@@ -83,7 +83,6 @@ class EmployeeRepository(private val webService: WebService,
             companyModel.name = employee.company?.name
             companyModel.catchPhrase = employee.company?.catchPhrase
 
-            employeeModel.id = employee.id
             employeeModel.name = employee.name
             employeeModel.email = employee.email
             employeeModel.phone = employee.phone

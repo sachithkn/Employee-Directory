@@ -13,7 +13,7 @@ interface EmployeeDao {
     @Query("SELECT * FROM EmployeeDaoModel")
     fun getAll(): LiveData<List<RoomModels.EmployeeDaoModel>>
 
-    @Query("SELECT * FROM EmployeeDaoModel WHERE id=id")
+    @Query("SELECT * FROM EmployeeDaoModel WHERE :id=id")
     fun getEmployee(id:String): LiveData<RoomModels.EmployeeDaoModel>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -15,6 +15,7 @@ import com.whiterabbittest.employeedirectory.R
 import com.whiterabbittest.employeedirectory.databinding.FragmentEmployeeBinding
 import com.whiterabbittest.employeedirectory.fragments.EmployeeDetailsFragment
 import com.whiterabbittest.employeedirectory.utils.RoomModels
+import org.json.JSONObject
 
 
 class MyEmployeeRecyclerViewAdapter(var context:Context? = null,
@@ -41,12 +42,18 @@ class MyEmployeeRecyclerViewAdapter(var context:Context? = null,
             Glide.with(context!!).load(values!![position]?.profile_image).into(holder.employeeImgVw)
 
         holder.employeeNameTxtVw.text = item.name
-        //holder.companyNameTxtVw.text = item.company?.name
-        holder.rootView.setOnClickListener{
-            it.findNavController().navigate(R.id.action_emplyeeFragment_to_employeeDetailsFragment, bundleOf(
-                EmployeeDetailsFragment.EMPLOYEE_ID to item.id))
+        val company = item.company
+        if(company != null) {
+            val jsonObject = JSONObject(company)
+            holder.companyNameTxtVw.text = jsonObject.getString("name")
         }
-
+        holder.rootView.setOnClickListener {
+            it.findNavController().navigate(
+                R.id.action_emplyeeFragment_to_employeeDetailsFragment, bundleOf(
+                    EmployeeDetailsFragment.EMPLOYEE_ID to item.id
+                )
+            )
+        }
     }
 
     override fun getItemCount(): Int = values.size
@@ -56,7 +63,7 @@ class MyEmployeeRecyclerViewAdapter(var context:Context? = null,
         val employeeNameTxtVw: TextView = binding.employeeNameTxtVw
         val companyNameTxtVw: TextView = binding.companyNameTxtVw
         val employeeImgVw: ImageView = binding.employeeImgVw
-        val rootView: LinearLayout = binding.root
+        val rootView: LinearLayout = binding.parentLayout
     }
 
 }

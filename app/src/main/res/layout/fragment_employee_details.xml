@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.EmployeeDetailsFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragments.EmployeeDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/nameTxtVw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/userNameTxtVw"
+        android:layout_width="56dp"
+        android:layout_marginTop="32dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toStartOf="@+id/nameTxtVw"
+        app:layout_constraintTop_toBottomOf="@+id/nameTxtVw" />
+
+    <TextView
+        android:id="@+id/emailTxtVw"
+        android:layout_width="56dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/nameTxtVw"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTxtVw" />
+
+
+    <TextView
+        android:id="@+id/adressTxtVw"
+        android:layout_width="56dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/nameTxtVw"
+        app:layout_constraintTop_toBottomOf="@+id/emailTxtVw" />
+
+    <TextView
+        android:id="@+id/phoneTxtVw"
+        android:layout_width="56dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/nameTxtVw"
+        app:layout_constraintTop_toBottomOf="@+id/adressTxtVw" />
+
+
+    <TextView
+        android:id="@+id/websiteTxtVw"
+        android:layout_width="56dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/nameTxtVw"
+        app:layout_constraintTop_toBottomOf="@+id/phoneTxtVw" />
+
+
+    <TextView
+        android:id="@+id/detailsTxtVw"
+        android:layout_width="56dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nameTxtVw"
+        app:layout_constraintTop_toBottomOf="@+id/websiteTxtVw" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

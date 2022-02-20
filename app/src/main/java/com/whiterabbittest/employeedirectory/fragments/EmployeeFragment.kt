@@ -38,10 +38,10 @@ class EmployeeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.list)
         progressBar = view.findViewById(R.id.progressBar)
-        getProfile()
+        getEmployee()
     }
 
-    private fun getProfile() {
+    private fun getEmployee() {
         progressBar?.visibility = View.VISIBLE
         val webService: WebService? = WebServiceProvider().getInstance()
         val db = Room.databaseBuilder(

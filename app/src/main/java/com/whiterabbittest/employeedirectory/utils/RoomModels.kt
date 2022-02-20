@@ -3,12 +3,15 @@ package com.whiterabbittest.employeedirectory.utils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import io.reactivex.annotations.NonNull
 
 class RoomModels {
     @Entity
     data class EmployeeDaoModel(
+
+        @NonNull
         @PrimaryKey
-        var id: String? = null,
+        var id: String,
         @ColumnInfo(name = "name")
         var name: String? = null,
         @ColumnInfo(name = "username")
